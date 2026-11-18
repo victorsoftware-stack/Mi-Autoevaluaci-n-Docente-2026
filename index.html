@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Autoevaluación Docente 2026 · CSDB</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root{--navy:#14295a;--navy2:#1F3864;--blue:#2E75B6;--sky:#e8f0fb;--gold:#c99a2e;--gold2:#f3e3b5;--ink:#18203a;--mut:#667089;--line:#e2e7f0;--bg:#f4f6fb;--ok:#2e7d32;--r:18px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font-family:"Plus Jakarta Sans",Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.5;-webkit-font-smoothing:antialiased}
+.hero{position:relative;overflow:hidden;background:radial-gradient(1200px 400px at 85% -10%,#3b6fc1 0%,transparent 60%),linear-gradient(135deg,#0f2049,#1F3864 60%,#24427a);color:#fff;padding:26px 20px 64px}
+.hero:after{content:"";position:absolute;right:-60px;bottom:-80px;width:260px;height:260px;border-radius:50%;border:38px solid rgba(201,154,46,.18)}
+.hero .in{max-width:880px;margin:0 auto;position:relative;z-index:1}
+.brand{display:flex;align-items:center;gap:10px;font-size:13px;letter-spacing:.6px;text-transform:uppercase;opacity:.85}
+.brand i{width:30px;height:30px;border-radius:9px;background:var(--gold);display:grid;place-items:center;font-style:normal;font-weight:800;color:#14295a}
+.hero h1{font-family:Fraunces,Georgia,serif;font-size:clamp(26px,4.4vw,38px);margin:14px 0 4px;line-height:1.1}
+.hero p{margin:0;opacity:.85;font-size:15px}
+nav.tabs{display:inline-flex;gap:4px;background:rgba(255,255,255,.12);padding:4px;border-radius:999px;margin-top:16px}
+nav.tabs button{border:0;background:none;color:#fff;padding:7px 14px;border-radius:999px;font:600 13px inherit;cursor:pointer;opacity:.8}
+nav.tabs button.on{background:#fff;color:var(--navy);opacity:1}
+main{max-width:880px;margin:-44px auto 0;padding:0 16px 70px;position:relative;z-index:2}
+.steps{display:flex;gap:6px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px;box-shadow:0 6px 24px rgba(20,41,90,.08);position:sticky;top:10px;z-index:10;overflow-x:auto;scrollbar-width:none}
+.steps::-webkit-scrollbar{display:none}
+.steps button{flex:1;min-width:44px;border:0;background:none;border-radius:999px;padding:8px 10px;font:600 12.5px inherit;color:var(--mut);cursor:pointer;white-space:nowrap;display:flex;align-items:center;justify-content:center;gap:6px}
+.steps button b{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--sky);color:var(--navy);font-size:11px}
+.steps button.done b{background:var(--ok);color:#fff}
+.steps button.on{background:var(--navy);color:#fff}.steps button.on b{background:var(--gold);color:var(--navy)}
+.steps button span{display:none}@media(min-width:760px){.steps button.on span{display:inline}}
+.panel{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:26px 24px;margin-top:16px;box-shadow:0 10px 40px rgba(20,41,90,.06);animation:in .35s ease}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gold)}
+.panel h2{font-family:Fraunces,Georgia,serif;font-size:26px;margin:4px 0 6px;color:var(--navy);line-height:1.2}
+.lead{color:var(--mut);margin:0 0 20px;font-size:15px}
+.field{margin:0 0 20px}.field>label{display:block;font-weight:700;font-size:14px;margin-bottom:8px}
+input[type=text],textarea,select{width:100%;font:16px inherit;padding:13px 15px;border:1.5px solid var(--line);border-radius:14px;background:#fbfcfe;color:var(--ink);transition:border .15s,box-shadow .15s}
+input:focus,textarea:focus,select:focus{outline:0;border-color:var(--blue);box-shadow:0 0 0 4px rgba(46,117,182,.12);background:#fff}
+textarea{min-height:92px;resize:vertical}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line);background:#fff;border-radius:14px;padding:10px 14px;font:600 14px inherit;color:var(--ink);cursor:pointer;display:flex;align-items:center;gap:9px;transition:all .15s}
+.chip:hover{border-color:var(--blue);transform:translateY(-1px)}
+.chip.on{border-color:var(--navy);background:var(--navy);color:#fff;box-shadow:0 6px 16px rgba(20,41,90,.2)}
+.chip .av{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:800;background:var(--gold2);color:var(--navy)}
+.chip.on .av{background:var(--gold);color:var(--navy)}
+.chip.star{border-color:var(--gold)}
+.q{border:1.5px solid var(--line);border-radius:16px;padding:16px;margin:0 0 12px;transition:all .2s;background:#fff}
+.q.ans{border-color:#cfe3cf;background:#fbfefb}.q.miss{border-color:#f2b8b5;background:#fff8f7;animation:shake .3s}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.q p{margin:0 0 12px;font-weight:600;font-size:15.5px;display:flex;gap:10px}
+.q p em{font-style:normal;flex:none;width:26px;height:26px;border-radius:8px;background:var(--sky);color:var(--navy);display:grid;place-items:center;font-size:12px;font-weight:800}
+.q.ans p em{background:var(--ok);color:#fff}
+.sc{display:grid;grid-template-columns:repeat(4,1fr) .7fr;gap:8px}
+@media(max-width:620px){.sc{grid-template-columns:repeat(2,1fr)}.sc button:last-child{grid-column:span 2}}
+.sc button{border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:10px 6px 8px;cursor:pointer;font:600 13px inherit;color:var(--ink);display:flex;flex-direction:column;align-items:center;gap:6px;transition:all .15s}
+.sc button:hover{transform:translateY(-2px);border-color:#b9c7dc}
+.dots{display:flex;gap:3px}.dots i{width:8px;height:8px;border-radius:50%;background:#dfe5ee}
+.sc button[data-v="4"] .dots i{background:#2e7d32}.sc button[data-v="3"] .dots i:nth-child(-n+3){background:#7cb342}.sc button[data-v="2"] .dots i:nth-child(-n+2){background:#f2b705}.sc button[data-v="1"] .dots i:nth-child(1){background:#e57373}
+.sc button.on{color:#fff;transform:translateY(-2px);box-shadow:0 8px 18px rgba(0,0,0,.12)}
+.sc button.on .dots i{background:rgba(255,255,255,.95)!important}
+.sc button.on[data-v="4"]{background:#2e7d32;border-color:#2e7d32}.sc button.on[data-v="3"]{background:#7cb342;border-color:#7cb342}
+.sc button.on[data-v="2"]{background:#e9a800;border-color:#e9a800}.sc button.on[data-v="1"]{background:#e05d5d;border-color:#e05d5d}.sc button.on[data-v="NA"]{background:#8c96a6;border-color:#8c96a6}
+.nav{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:22px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:14px;padding:13px 22px;font:700 15px inherit;cursor:pointer;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-1px)}.btn:disabled{opacity:.5;cursor:default;transform:none}
+.btn.pri{background:var(--navy);color:#fff;box-shadow:0 8px 20px rgba(20,41,90,.25)}
+.btn.gold{background:linear-gradient(135deg,#d8ad45,#b8862a);color:#fff;box-shadow:0 8px 20px rgba(184,134,42,.3)}
+.btn.ghost{background:transparent;color:var(--mut)}.btn.sec{background:#fff;border:1.5px solid var(--navy);color:var(--navy)}
+.msg{padding:12px 16px;border-radius:12px;font-size:14px;margin:14px 0 0;display:none}
+.msg.show{display:block;animation:in .25s}.msg.ok{background:#e8f5e9;color:#1b5e20}.msg.err{background:#fdecea;color:#8a1c1c}.msg.info{background:var(--sky);color:var(--navy)}
+.welcome{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:center}
+@media(max-width:700px){.welcome{grid-template-columns:1fr}.welcome svg{display:none}}
+.feats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0 4px}
+.feat{background:var(--bg);border-radius:14px;padding:12px;font-size:13.5px;color:var(--mut)}.feat b{display:block;color:var(--navy);font-size:14px}
+/* reporte */
+.rhead{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:flex-start}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;font-weight:700;font-size:13px}
+.lvl-Superior{background:#d7efd8;color:#1b5e20}.lvl-Alto{background:#e6f2d6;color:#33691e}.lvl-Básico{background:#fff1c2;color:#7a5b00}.lvl-Bajo{background:#ffd9d6;color:#8a1c1c}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:20px 0}
+@media(max-width:620px){.kpis{grid-template-columns:1fr 1fr}}
+.kpi{background:linear-gradient(180deg,#f7f9fd,#eef3fb);border-radius:16px;padding:16px;text-align:center}
+.kpi b{display:block;font-size:28px;color:var(--navy);font-weight:800;line-height:1.1}.kpi span{font-size:12px;color:var(--mut)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}@media(max-width:700px){.grid2{grid-template-columns:1fr}}
+.box{border:1px solid var(--line);border-radius:16px;padding:16px}
+.box h3{margin:0 0 10px;font-size:13px;letter-spacing:.6px;text-transform:uppercase;color:var(--blue)}
+.hb{display:grid;grid-template-columns:minmax(120px,42%) 1fr 36px;gap:10px;align-items:center;margin:9px 0;font-size:13.5px}
+.hb .t{height:12px;background:#edf1f7;border-radius:99px;overflow:hidden}.hb .t i{display:block;height:100%;border-radius:99px;width:0;transition:width 1s cubic-bezier(.2,.8,.2,1)}
+.hb .v{text-align:right;font-weight:800}
+table.st{width:100%;border-collapse:collapse;font-size:14px}
+table.st th,table.st td{padding:9px 6px;text-align:left;border-bottom:1px solid #eef1f6}
+table.st th{color:var(--mut);font-weight:600;font-size:11.5px;text-transform:uppercase;letter-spacing:.4px}
+.synth{background:linear-gradient(180deg,#fffdf6,#fbf6e8);border:1px solid #efe2bd;padding:16px 18px;border-radius:16px;font-size:15px;position:relative}
+.synth:before{content:"“";position:absolute;top:-14px;left:14px;font:700 54px Fraunces,serif;color:var(--gold)}
+ul.l{margin:6px 0 4px 0;padding:0;list-style:none;font-size:14px}ul.l li{padding:6px 0 6px 24px;position:relative;border-bottom:1px dashed #eef1f6}
+ul.l.f li:before{content:"✓";position:absolute;left:2px;color:var(--ok);font-weight:800}ul.l.o li:before{content:"↗";position:absolute;left:2px;color:#c77c00;font-weight:800}
+.radar{width:100%;max-width:360px;display:block;margin:0 auto}
+.actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:24px 0 4px}
+.sent{display:none;text-align:center;padding:10px}.sent.show{display:block;animation:in .4s}
+.sent .ck{width:64px;height:64px;border-radius:50%;background:var(--ok);color:#fff;display:grid;place-items:center;font-size:32px;margin:0 auto 8px;animation:pop .5s}
+@keyframes pop{0%{transform:scale(.3)}70%{transform:scale(1.1)}100%{transform:scale(1)}}
+#pdfOv{position:fixed;inset:0;background:rgba(14,24,52,.55);z-index:50;display:grid;place-items:center;padding:16px;animation:in .2s}
+.ovbox{background:#fff;border-radius:20px;width:min(900px,100%);max-height:94vh;display:flex;flex-direction:column;padding:18px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.ovhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
+.ovbox iframe{width:100%;height:68vh;border:1px solid var(--line);border-radius:12px;background:#f4f6fb}
+.ovtip{font-size:13px;color:var(--mut);margin:10px 0 0;text-align:center}
+a.btn{text-decoration:none}
+.hidden{display:none!important}
+.foot{color:var(--mut);font-size:12px;text-align:center;margin-top:30px}
+</style>
+</head>
+<body>
+<div class="hero"><div class="in">
+  <div class="brand"><i>SD</i>Colegio Santo Domingo Bilingüe · Bogotá</div>
+  <h1>Mi Autoevaluación Docente 2026</h1>
+  <p>Un momento para mirar su año, reconocer sus logros y trazar su ruta de crecimiento.</p>
+  
+</div></div>
+<main>
+<div id="vForm">
+  <div class="steps" id="steps"></div>
+  <div id="stage"></div>
+</div>
+<div id="vRep" class="hidden"></div>
+<p class="foot">Colegio Santo Domingo Bilingüe · Autoevaluación docente 2026 · Marco pedagógico: Pedagogía Conceptual</p>
+</main>
+<script>
+const LIDERES=["Karen Rodríguez","Amanda Lozano","Jhon Lagos","David García","Carlos Torres"];
+const FASES=["Inicial (1.° – 2.°)","Primaria (3.° – 5.°)","Fase 6.° – 7.°","Fase 8.° – 9.°","Fase 10.° – 11.°"];
+const CURSOS=[];for(let g=1;g<=11;g++)for(const l of "ABCDEF")CURSOS.push(g+l);
+const DIMS=[["D1","Gestión pedagógica (Pedagogía Conceptual)",.30,"Gestión pedagógica"],["D2","Inclusión y atención a la diversidad",.20,"Inclusión"],["D3","Convivencia, familias y mentoría",.20,"Convivencia"],["D4","Compromiso institucional",.15,"Compromiso"],["D5","Bilingüismo y crecimiento profesional",.15,"Crecimiento"]];
+const DINTRO={D1:"Cómo planea, enseña y evalúa desde los propósitos afectivos, cognitivos y expresivos.",D2:"Cómo reconoce y atiende la diversidad de sus estudiantes.",D3:"Cómo cuida el vínculo con estudiantes y familias.",D4:"Cómo vive los acuerdos y protocolos institucionales.",D5:"Cómo crece como profesional y fortalece el bilingüismo."};
+const A="Actitudes (afectivo)",S="Saberes (cognitivo)",H="Habilidades (expresivo)",COMPS=[A,S,H];
+const ITEMS=[["D1",S,"Planeo mis clases con propósitos afectivos, cognitivos y expresivos claros."],["D1",H,"Desarrollo en el aula la secuencia didáctica de Pedagogía Conceptual."],["D1",S,"Uso los resultados de la evaluación para ajustar mi enseñanza."],["D2",H,"Aplico en mis clases los ajustes razonables de los PIAR."],["D2",A,"Reconozco y respeto los distintos ritmos y estilos de aprendizaje."],["D2",S,"Identifico dificultades de aprendizaje y las comunico a tiempo al Área de Apoyo."],["D3",A,"Trato a mis estudiantes con cordialidad y respeto."],["D3",H,"Mantengo comunicación oportuna con las familias a través de Edupage."],["D3",S,"Sigo el debido proceso ante las situaciones de convivencia."],["D4",H,"Cumplo puntualmente los protocolos de ingreso, salida y acompañamiento en descansos."],["D4",H,"Llego puntualmente y permanezco en el aula durante toda la clase."],["D4",A,"Acojo con apertura las recomendaciones que recibo."],["D5",H,"Incorporo el uso del inglés en mis clases."],["D5",A,"Participo activamente en las jornadas de formación y en el trabajo en equipo."],["D5",S,"Reflexiono sobre mi práctica y la mejoro de forma continua."]];
+const OPTS=[["4","Siempre"],["3","Casi siempre"],["2","Algunas veces"],["1","Rara vez"],["NA","No aplica"]];
+const LBL={"4":"Siempre","3":"Casi siempre","2":"Algunas veces","1":"Rara vez","NA":"No aplica"};
+const REC={D1:"fortalecer la planeación por propósitos y la secuencia didáctica (fases afectiva, cognitiva y expresiva) mediante observación entre pares y retroalimentación de clase",
+D2:"profundizar en la implementación de ajustes razonables y principios del DUA, en articulación con el Área de Apoyo Pedagógico e Inclusión",
+D3:"consolidar la comunicación con las familias y el debido proceso convivencial, con acuerdos de aula construidos con el grupo",
+D4:"afianzar los hábitos de puntualidad y cumplimiento de protocolos como modelaje formativo para los estudiantes",
+D5:"incrementar el uso del inglés en el aula y sostener espacios de reflexión sistemática sobre la propia práctica"};
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const key=i=>"C"+String(i+1).padStart(2,"0");
+const ini=n=>n.split(" ").map(w=>w[0]).slice(0,2).join("");
+const S0={nombre:"",lider:"",fase:"",mentor:"",curso:"",resp:{},mentoria:{calificacion:"",funciono:"",mejoraria:"",recomendacion:""},reflexion:{logro:"",compromiso:""}};
+const st=JSON.parse(JSON.stringify(S0));
+// ---------- cálculo ----------
+const mean=a=>a.reduce((s,x)=>s+x,0)/a.length;
+function nivel(x){if(x==null||isNaN(x))return"";return x>=3.6?"Superior":x>=3.0?"Alto":x>=2.0?"Básico":"Bajo"}
+function compute(resp){
+  const vals=ITEMS.map((_,i)=>resp["C"+String(i+1).padStart(2,"0")]);
+  const num=vals.map(v=>v==="NA"||v==null?null:Number(v));
+  const dims={},comps={};
+  DIMS.forEach(([c,n])=>{const a=num.filter((v,i)=>ITEMS[i][0]===c&&v!=null);dims[c]=a.length?mean(a):null});
+  COMPS.forEach(n=>{const a=num.filter((v,i)=>ITEMS[i][1]===n&&v!=null);comps[n]=a.length?mean(a):null});
+  let sw=0,s=0;DIMS.forEach(([c,,w])=>{if(dims[c]!=null){s+=dims[c]*w;sw+=w}});
+  const indice=sw?s/sw:null;const a=num.filter(v=>v!=null).sort((x,y)=>x-y);
+  const n=a.length,m=n?mean(a):null,med=n?(n%2?a[(n-1)/2]:(a[n/2-1]+a[n/2])/2):null;
+  const sd=n>1?Math.sqrt(a.reduce((t,x)=>t+(x-m)**2,0)/(n-1)):0;
+  const freq={};OPTS.forEach(([v])=>freq[v]=vals.filter(x=>x===v).length);
+  const moda=["4","3","2","1"].reduce((b,v)=>freq[v]>freq[b]?v:b,"4");
+  return{dims,comps,indice,nivel:nivel(indice),n,media:m,mediana:med,sd,cv:m?sd/m:0,min:n?a[0]:null,max:n?a[n-1]:null,moda:n?LBL[moda]:"",freq,fav:n?(freq["4"]+freq["3"])/n:0,num};
+}
+function synthesis(r,res,plain){
+  const NM=plain?r.nombre:esc(r.nombre);
+  const nm=r.nombre.split(" ")[0];const ds=DIMS.filter(([c])=>res.dims[c]!=null).map(([c,n])=>({c,n,v:res.dims[c]}));
+  ds.sort((a,b)=>b.v-a.v);const hi=ds[0],lo=ds[ds.length-1];
+  const cs=COMPS.filter(c=>res.comps[c]!=null).map(c=>({c,v:res.comps[c]})).sort((a,b)=>b.v-a.v);
+  const sem={[A]:"la dimensión afectiva —disposición, valoración y relación con el otro—",[S]:"la dimensión cognitiva —comprensión, criterio pedagógico y toma de decisiones fundamentadas—",[H]:"la dimensión expresiva —desempeños observables y ejecución en el aula—"};
+  let t=`En su autoevaluación 2026, ${NM} se ubica en el nivel <b>${res.nivel}</b>, con un índice ponderado de <b>${res.indice.toFixed(2)}</b> sobre 4 y un ${Math.round(res.fav*100)} % de respuestas favorables (Siempre o Casi siempre). `;
+  if(hi&&lo&&hi.v-lo.v>=0.1)t+=`Su dimensión más consolidada es <b>${hi.n}</b> (${hi.v.toFixed(1)}), mientras que <b>${lo.n}</b> (${lo.v.toFixed(1)}) se perfila como el principal foco de crecimiento. `;
+  else if(hi)t+=`Su desempeño se percibe homogéneo entre las dimensiones evaluadas (${hi.v.toFixed(1)} en todas). `;
+  if(cs.length===3){const d=cs[0].v-cs[2].v;t+=d<0.3?`Desde la tríada de la Pedagogía Conceptual, su perfil muestra un equilibrio entre actitudes, saberes y habilidades. `:`Desde la tríada de la Pedagogía Conceptual, se reconoce mayor fortaleza en ${sem[cs[0].c]}, y un margen de desarrollo en ${sem[cs[2].c]}. `}
+  t+=res.sd<0.5?`La baja dispersión de sus respuestas (DE = ${res.sd.toFixed(2)}) indica un perfil consistente. `:`La dispersión de sus respuestas (DE = ${res.sd.toFixed(2)}) revela contrastes entre criterios que conviene leer como oportunidades específicas de mejora. `;
+  if(lo&&lo.v<3.6)t+=`Como ruta para 2027 se sugiere ${REC[lo.c]}.`;else t+=`Se sugiere sostener estas prácticas y compartirlas con el equipo como referente institucional.`;
+  return t;
+}
+
+function stepsList(){const s=[["inicio","Inicio"],["datos","Mis datos"]];DIMS.forEach(d=>s.push([d[0],d[3]]));if(st.mentor==="Sí")s.push(["mentoria","Mentoría"]);s.push(["reflexion","Reflexión"]);return s}
+let cur=0;
+function dimDone(c){return ITEMS.every((it,i)=>it[0]!==c||st.resp[key(i)])}
+function stepDone(id){if(id==="inicio")return cur>0;if(id==="datos")return !!(st.nombre&&st.lider&&st.fase&&st.mentor);if(id.startsWith("D"))return dimDone(id);if(id==="mentoria")return !!st.mentoria.calificacion;if(id==="reflexion")return !!(st.reflexion.logro||st.reflexion.compromiso);return false}
+function renderSteps(){const L=stepsList();$("steps").innerHTML=L.map(([id,t],i)=>`<button class="${i===cur?"on":""} ${stepDone(id)&&i!==cur?"done":""}" data-s="${i}"><b>${stepDone(id)&&i!==cur?"✓":i+1}</b><span>${t}</span></button>`).join("")}
+$("steps").addEventListener("click",e=>{const b=e.target.closest("button");if(b)go(+b.dataset.s)});
+function go(i){cur=Math.max(0,Math.min(i,stepsList().length-1));render();window.scrollTo({top:0,behavior:"smooth"})}
+const navHTML=(last)=>`<div class="msg err" id="err"></div><div class="nav">${cur>0?`<button class="btn ghost" id="prev">← Atrás</button>`:"<span></span>"}<button class="btn ${last?"gold":"pri"}" id="next">${last?"Ver mi análisis ✨":"Continuar →"}</button></div>`;
+function render(){
+  renderSteps();const L=stepsList();const [id]=L[cur];const last=cur===L.length-1;let h="";
+  if(id==="inicio"){h=`<div class="panel"><div class="welcome"><div><div class="eyebrow">Bienvenido(a)</div><h2>Gracias por tomarse este momento</h2><p class="lead">Mirar con honestidad la propia práctica es el primer paso para transformarla. No hay respuestas correctas: lo valioso es su mirada.</p>
+    <div class="feats"><div class="feat"><b>⏱ 10 minutos</b>15 afirmaciones en 5 dimensiones</div><div class="feat"><b>📊 Análisis inmediato</b>Estadística y síntesis de su autoevaluación</div><div class="feat"><b>📄 Informe PDF</b>Descárguelo al finalizar</div><div class="feat"><b>📨 Envío directo</b>Llega a su Líder de Fase</div></div></div>
+    <svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="88" fill="#e8f0fb"/><rect x="58" y="44" width="84" height="112" rx="12" fill="#fff" stroke="#14295a" stroke-width="4"/><rect x="80" y="36" width="40" height="18" rx="6" fill="#c99a2e"/>${[0,1,2,3].map(k=>`<circle cx="76" cy="${76+k*20}" r="5" fill="${["#2e7d32","#7cb342","#e9a800","#2e7d32"][k]}"/><rect x="88" y="${72+k*20}" width="${[40,32,44,28][k]}" height="8" rx="4" fill="#dfe5ee"/>`).join("")}</svg></div>
+    <div id="prevMsg" class="msg info"></div>${navHTML(false).replace("Continuar →","Comenzar →")}</div>`}
+  else if(id==="datos"){h=`<div class="panel"><div class="eyebrow">Paso ${cur+1}</div><h2>Mis datos</h2><p class="lead">Cuéntenos quién es y con quién trabaja.</p>
+    <div class="field"><label for="nom">Nombre completo</label><input type="text" id="nom" placeholder="Escriba sus nombres y apellidos" value="${esc(st.nombre)}" autocomplete="name"></div>
+    <div class="field"><label>Mi Líder de Fase</label><div class="chips" id="cLid">${LIDERES.map(l=>`<button class="chip ${st.lider===l?"on":""}" data-v="${l}"><span class="av">${ini(l)}</span>${l}</button>`).join("")}</div></div>
+    <div class="field"><label>Mi fase</label><div class="chips" id="cFase">${FASES.map(l=>`<button class="chip ${st.fase===l?"on":""}" data-v="${l}">${l}</button>`).join("")}</div></div>
+    <div class="field"><label>¿Es mentor(a) de curso este año?</label><div class="chips" id="cMen">${["Sí","No"].map(l=>`<button class="chip ${st.mentor===l?"on":""}" data-v="${l}">${l==="Sí"?"🧭 Sí, soy mentor(a)":"No"}</button>`).join("")}</div></div>
+    <div class="field ${st.mentor==="Sí"?"":"hidden"}" id="fCur"><label for="cur">Curso a cargo</label><select id="cur"><option value="">Seleccione su curso…</option>${CURSOS.map(c=>`<option ${st.curso===c?"selected":""}>${c}</option>`).join("")}</select></div>
+    ${navHTML(last)}</div>`}
+  else if(id.startsWith("D")){const d=DIMS.find(x=>x[0]===id);let n=0;h=`<div class="panel"><div class="eyebrow">Dimensión ${id.slice(1)} de 5 · peso ${Math.round(d[2]*100)} %</div><h2>${d[1]}</h2><p class="lead">${DINTRO[id]}</p>`+
+    ITEMS.map((it,i)=>{if(it[0]!==id)return"";n++;const v=st.resp[key(i)];return`<div class="q ${v?"ans":""}" id="q${i}"><p><em>${n}</em>${it[2]}</p><div class="sc">${OPTS.map(([ov,t])=>`<button data-i="${i}" data-v="${ov}" class="${v===ov?"on":""}">${ov==="NA"?"<span style='height:8px'>–</span>":`<span class="dots"><i></i><i></i><i></i><i></i></span>`}${t}</button>`).join("")}</div></div>`}).join("")+navHTML(last)+`</div>`}
+  else if(id==="mentoria"){const m=st.mentoria;h=`<div class="panel"><div class="eyebrow">Paso ${cur+1}</div><h2>Mi mentoría y acompañamiento escolar</h2><p class="lead">Teniendo en cuenta aspectos a mejorar. Responda cada pregunta en dos o tres líneas.</p>
+    <div class="field"><label>¿Cómo califica su proceso de mentoría este año?</label><div class="chips" id="cCal">${[["Excelente","🌟"],["Bueno","👍"],["Aceptable","🙂"],["Por mejorar","🌱"]].map(([l,e])=>`<button class="chip ${m.calificacion===l?"on":""}" data-v="${l}">${e} ${l}</button>`).join("")}</div></div>
+    <div class="field"><label for="mOk">¿Qué funcionó con este grupo?</label><textarea id="mOk" data-k="funciono">${esc(m.funciono)}</textarea></div>
+    <div class="field"><label for="mMej">¿Qué no funcionó o qué mejoraría?</label><textarea id="mMej" data-k="mejoraria">${esc(m.mejoraria)}</textarea></div>
+    <div class="field"><label for="mRec">¿Qué le recomienda al director(a) de grupo que recibe el curso?</label><textarea id="mRec" data-k="recomendacion">${esc(m.recomendacion)}</textarea></div>${navHTML(last)}</div>`}
+  else if(id==="reflexion"){h=`<div class="panel"><div class="eyebrow">Último paso</div><h2>Mi reflexión</h2><p class="lead">Una o dos frases bastan.</p>
+    <div class="field"><label for="rLog">Mi mayor logro o fortaleza este año fue…</label><textarea id="rLog" data-r="logro">${esc(st.reflexion.logro)}</textarea></div>
+    <div class="field"><label for="rCom">En 2027 me comprometo a…</label><textarea id="rCom" data-r="compromiso">${esc(st.reflexion.compromiso)}</textarea></div>${navHTML(true)}</div>`}
+  $("stage").innerHTML=h;bind(id);
+  if(id==="inicio"&&prevSent)showMsg($("prevMsg"),"info",prevSent);
+}
+function chipGroup(el,fn){el&&el.addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;el.querySelectorAll(".chip").forEach(x=>x.classList.toggle("on",x===b));fn(b.dataset.v);renderSteps()})}
+function bind(id){
+  $("prev")&&($("prev").onclick=()=>go(cur-1));
+  $("next").onclick=()=>{const e=validate(id);if(e){showMsg($("err"),"err",e);return}const L=stepsList();if(cur===L.length-1)toReport();else go(cur+1)};
+  if(id==="datos"){$("nom").oninput=e=>{st.nombre=e.target.value.trim();renderSteps()};chipGroup($("cLid"),v=>st.lider=v);chipGroup($("cFase"),v=>st.fase=v);
+    chipGroup($("cMen"),v=>{st.mentor=v;$("fCur").classList.toggle("hidden",v!=="Sí");if(v!=="Sí")st.curso="";});$("cur").onchange=e=>st.curso=e.target.value}
+  if(id.startsWith("D"))$("stage").querySelector(".panel").addEventListener("click",e=>{const b=e.target.closest(".sc button");if(!b)return;const i=+b.dataset.i;st.resp[key(i)]=b.dataset.v;
+    b.parentElement.querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b));const q=$("q"+i);q.classList.add("ans");q.classList.remove("miss");renderSteps();
+    const nx=ITEMS.findIndex((it,j)=>it[0]===id&&!st.resp[key(j)]);if(nx>=0)setTimeout(()=>$("q"+nx)?.scrollIntoView({behavior:"smooth",block:"center"}),180);else setTimeout(()=>$("next")?.scrollIntoView({behavior:"smooth",block:"center"}),180)});
+  if(id==="mentoria"){chipGroup($("cCal"),v=>st.mentoria.calificacion=v);document.querySelectorAll("textarea[data-k]").forEach(t=>t.oninput=()=>st.mentoria[t.dataset.k]=t.value.trim())}
+  if(id==="reflexion")document.querySelectorAll("textarea[data-r]").forEach(t=>t.oninput=()=>{st.reflexion[t.dataset.r]=t.value.trim();renderSteps()});
+}
+function validate(id){
+  if(id==="datos"){const m=[];if(!st.nombre)m.push("su nombre");if(!st.lider)m.push("su Líder de Fase");if(!st.fase)m.push("su fase");if(!st.mentor)m.push("si es mentor(a)");if(st.mentor==="Sí"&&!st.curso)m.push("su curso");return m.length?"Falta: "+m.join(", ")+".":""}
+  if(id.startsWith("D")){const mi=ITEMS.map((it,i)=>i).filter(i=>ITEMS[i][0]===id&&!st.resp[key(i)]);mi.forEach(i=>$("q"+i).classList.add("miss"));if(mi.length){$("q"+mi[0]).scrollIntoView({behavior:"smooth",block:"center"});return"Responda todas las afirmaciones de esta dimensión."}}
+  if(id==="mentoria"&&!st.mentoria.calificacion)return"Califique su proceso de mentoría.";
+  if(id==="reflexion"){const firstMiss=stepsList().findIndex(([s])=>s!=="reflexion"&&s!=="inicio"&&!stepDone(s));if(firstMiss>=0){setTimeout(()=>go(firstMiss),900);return"Hay un paso pendiente; lo llevamos allí."}
+    const r=compute(st.resp);if(r.indice==null)return"Marque al menos una afirmación distinta de «No aplica».";}
+  return"";
+}
+function showMsg(el,cls,txt){if(!el)return;el.className="msg show "+cls;el.innerHTML=txt}
+const col=v=>v>=3.6?"#2e7d32":v>=3?"#7cb342":v>=2?"#e9a800":"#e05d5d";
+function bars(list){return list.map(([n,v])=>`<div class="hb"><span>${n}</span><span class="t"><i data-w="${v==null?0:v/4*100}" style="background:${v==null?"#ccc":col(v)}"></i></span><span class="v">${v==null?"—":v.toFixed(1)}</span></div>`).join("")}
+function animateBars(root){requestAnimationFrame(()=>setTimeout(()=>root.querySelectorAll(".hb .t i").forEach(i=>i.style.width=i.dataset.w+"%"),60))}
+function radar(vals,labels,series2){const cx=180,cy=170,R=118,n=vals.length;const pt=(i,v)=>{const a=-Math.PI/2+i*2*Math.PI/n;return[cx+R*(v/4)*Math.cos(a),cy+R*(v/4)*Math.sin(a)]};
+  let g="";[1,2,3,4].forEach(k=>{g+=`<polygon points="${vals.map((_,i)=>pt(i,k).join(",")).join(" ")}" fill="${k%2?"#f6f8fc":"#fff"}" stroke="#e2e7f0"/>`});
+  vals.forEach((_,i)=>{const [x,y]=pt(i,4);g+=`<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="#e2e7f0"/>`;const [lx,ly]=pt(i,4.75);g+=`<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle" font-size="11.5" font-weight="600" fill="#667089">${labels[i]}</text>`});
+  if(series2)g+=`<polygon points="${series2.map((v,i)=>pt(i,v||0).join(",")).join(" ")}" fill="rgba(201,154,46,.15)" stroke="#c99a2e" stroke-width="2" stroke-dasharray="5 4"/>`;
+  g+=`<polygon points="${vals.map((v,i)=>pt(i,v||0).join(",")).join(" ")}" fill="rgba(46,117,182,.25)" stroke="#2E75B6" stroke-width="2.5"><animate attributeName="opacity" from="0" to="1" dur=".8s"/></polygon>`;
+  vals.forEach((v,i)=>{const [x,y]=pt(i,v||0);g+=`<circle cx="${x}" cy="${y}" r="4.5" fill="#14295a"/>`});
+  return`<svg class="radar" viewBox="0 0 360 340" role="img" aria-label="Perfil por dimensión">${g}</svg>`}
+let current=null;
+function toReport(){current={...JSON.parse(JSON.stringify(st)),anio:2026};current.res=compute(current.resp);renderReport();$("vForm").classList.add("hidden");$("vRep").classList.remove("hidden");window.scrollTo({top:0,behavior:"smooth"})}
+function renderReport(){
+  const r=current,res=r.res;const f=ITEMS.map((it,i)=>[it[2],res.num[i]]).filter(x=>x[1]===4).map(x=>x[0]),o=ITEMS.map((it,i)=>[it[2],res.num[i]]).filter(x=>x[1]!=null&&x[1]<=2).map(x=>x[0]);
+  $("vRep").innerHTML=`<div class="panel"><div class="rhead"><div><div class="eyebrow">Análisis de mi autoevaluación 2026</div><h2>${esc(r.nombre)}</h2><p class="lead" style="margin:0">${esc(r.fase)} · Líder de Fase: ${esc(r.lider)}${r.mentor==="Sí"?" · Mentor(a) "+esc(r.curso):""}</p></div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:10px"><span class="badge lvl-${res.nivel}">Nivel ${res.nivel}</span><button class="btn gold" id="dlTop">⬇ Descargar mi informe en PDF</button></div></div><div class="msg" id="topMsg"></div>
+    <div class="kpis"><div class="kpi"><b>${res.indice.toFixed(2)}</b><span>Índice ponderado (1–4)</span></div><div class="kpi"><b>${Math.round(res.fav*100)}%</b><span>Respuestas favorables</span></div><div class="kpi"><b>${res.media.toFixed(2)}</b><span>Media simple</span></div><div class="kpi"><b>${res.n}</b><span>Criterios valorados</span></div></div>
+    <div class="grid2"><div class="box"><h3>Perfil por dimensión</h3>${radar(DIMS.map(([c])=>res.dims[c]),DIMS.map(d=>d[3]))}</div>
+    <div class="box"><h3>Resultado por dimensión</h3>${bars(DIMS.map(([c,,,s])=>[s,res.dims[c]]))}<h3 style="margin-top:16px">Actitudes · Saberes · Habilidades</h3>${bars(COMPS.map(c=>[c,res.comps[c]]))}</div></div>
+    <div class="grid2" style="margin-top:20px"><div class="box"><h3>Estadísticos descriptivos</h3><table class="st"><tr><th>Media</th><td>${res.media.toFixed(2)}</td><th>Mediana</th><td>${res.mediana.toFixed(1)}</td></tr><tr><th>Moda</th><td>${res.moda}</td><th>Desv. est.</th><td>${res.sd.toFixed(2)}</td></tr><tr><th>Coef. var.</th><td>${Math.round(res.cv*100)} %</td><th>Rango</th><td>${res.min} – ${res.max}</td></tr></table></div>
+    <div class="box"><h3>Distribución de respuestas</h3>${OPTS.map(([v,t])=>`<div class="hb"><span>${t}</span><span class="t"><i data-w="${res.freq[v]/ITEMS.length*100}" style="background:${v==="NA"?"#8c96a6":col(Number(v))}"></i></span><span class="v">${res.freq[v]}</span></div>`).join("")}</div></div>
+    <div style="margin-top:22px"><div class="eyebrow" style="margin-bottom:12px">Síntesis de la autoevaluación</div><div class="synth">${synthesis(r,res)}</div></div>
+    <div class="grid2" style="margin-top:20px"><div class="box"><h3 style="color:var(--ok)">Fortalezas</h3><ul class="l f">${f.length?f.map(x=>`<li>${x}</li>`).join(""):"<li>Aún sin criterios en «Siempre».</li>"}</ul></div><div class="box"><h3 style="color:#c77c00">Oportunidades de mejora</h3><ul class="l o">${o.length?o.map(x=>`<li>${x}</li>`).join(""):"<li>Ningún criterio en «Algunas veces» o «Rara vez».</li>"}</ul></div></div>
+    <div class="sent" id="sent"><div class="ck">✓</div><b>¡Autoevaluación enviada a ${esc(r.lider)}!</b><p class="lead" style="margin:4px 0 0">Gracias por su compromiso con el aprendizaje.</p></div>
+    <div class="msg" id="repMsg"></div>
+    <div class="actions"><button class="btn ghost" id="back">← Editar</button><button class="btn gold" id="dlPdf">⬇ Descargar informe PDF</button><button class="btn pri" id="send">Enviar a mi Líder de Fase</button></div></div>`;
+  animateBars($("vRep"));
+  $("back").onclick=()=>{$("vRep").classList.add("hidden");$("vForm").classList.remove("hidden");go(1)};
+  $("dlPdf").onclick=()=>savePdf(current,$("repMsg"));$("dlTop").onclick=()=>savePdf(current,$("topMsg"));
+  $("send").onclick=send;if(!db||!uid)$("send").classList.add("hidden");
+}
+// ---------- PDF ----------
+function pdfBlob(r){
+  const res=r.res||compute(r.resp);const {jsPDF}=window.jspdf;const d=new jsPDF({unit:"mm",format:"letter"});
+  const W=215.9,M=16;let y=0;const navy=[31,56,100],blue=[46,117,182],mut=[90,100,116];
+  const clean=s=>String(s==null?"":s).replace(/[–—]/g,"-").replace(/…/g,"...").replace(/[“”]/g,'"').replace(/✎/g,"");
+  const hex=h=>[parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)];
+  function need(h){if(y+h>265){d.addPage();y=18}}
+  function h2(t){y+=4;need(14);d.setFont("helvetica","bold");d.setFontSize(11);d.setTextColor(...blue);d.text(clean(t).toUpperCase(),M,y);y+=2;d.setDrawColor(...blue);d.setLineWidth(.4);d.line(M,y,W-M,y);y+=6}
+  function para(t,sz=10,col=[30,35,48],style="normal"){d.setFont("helvetica",style);d.setFontSize(sz);d.setTextColor(...col);const ls=d.splitTextToSize(clean(t),W-2*M);ls.forEach(l=>{need(5);d.text(l,M,y);y+=4.6})}
+  function hbar(lbl,v,maxW=78,lw=88){need(7);d.setFont("helvetica","normal");d.setFontSize(9);d.setTextColor(30,35,48);d.text(d.splitTextToSize(clean(lbl),lw)[0],M,y+3);
+    d.setFillColor(233,238,245);d.roundedRect(M+lw+2,y,maxW,4.2,2,2,"F");if(v!=null){d.setFillColor(...hex(col(v)));d.roundedRect(M+lw+2,y,Math.max(2,maxW*v/4),4.2,2,2,"F")}
+    d.setFont("helvetica","bold");d.text(v==null?"-":v.toFixed(1),M+lw+maxW+6,y+3.3);y+=7}
+  d.setFillColor(...navy);d.rect(0,0,W,30,"F");d.setTextColor(255,255,255);d.setFont("helvetica","bold");d.setFontSize(16);d.text("INFORME DE AUTOEVALUACIÓN DOCENTE 2026",W/2,13,{align:"center"});
+  d.setFont("helvetica","normal");d.setFontSize(10);d.text("Colegio Santo Domingo Bilingüe · Bogotá D.C. · Marco: Pedagogía Conceptual",W/2,21,{align:"center"});y=40;
+  d.setTextColor(30,35,48);d.setFont("helvetica","bold");d.setFontSize(13);d.text(clean(r.nombre),M,y);y+=6;
+  d.setFont("helvetica","normal");d.setFontSize(9.5);d.setTextColor(...mut);d.text(clean(`${r.fase}  ·  Líder de Fase: ${r.lider}  ·  ${r.mentor==="Sí"?"Mentor(a) del curso "+r.curso:"No es mentor(a)"}  ·  Año 2026`),M,y);y+=8;
+  const k=[[res.indice.toFixed(2),"Índice ponderado (1-4)"],[res.nivel,"Nivel"],[Math.round(res.fav*100)+" %","Respuestas favorables"],[String(res.n),"Criterios valorados"]];
+  const kw=(W-2*M-9)/4;k.forEach(([v,l],i)=>{const x=M+i*(kw+3);d.setFillColor(234,241,250);d.roundedRect(x,y,kw,17,2,2,"F");d.setTextColor(...navy);d.setFont("helvetica","bold");d.setFontSize(14);d.text(clean(v),x+kw/2,y+8,{align:"center"});d.setFont("helvetica","normal");d.setFontSize(8);d.setTextColor(...mut);d.text(l,x+kw/2,y+13.5,{align:"center"})});y+=25;
+  h2("Resultado por dimensión");DIMS.forEach(([c,n,w])=>hbar(`${n} (${Math.round(w*100)} %)`,res.dims[c]));y+=2;
+  h2("Actitudes · Saberes · Habilidades");COMPS.forEach(c=>hbar(c,res.comps[c]));y+=2;
+  h2("Estadísticos descriptivos");need(16);const sh=["Media","Mediana","Moda","Desv. estándar","Coef. variación","Mín - Máx"],sv=[res.media.toFixed(2),res.mediana.toFixed(1),res.moda,res.sd.toFixed(2),Math.round(res.cv*100)+" %",`${res.min} - ${res.max}`];
+  const cw=(W-2*M)/6;sh.forEach((h,i)=>{d.setFont("helvetica","bold");d.setFontSize(8);d.setTextColor(...mut);d.text(h,M+i*cw,y);d.setFont("helvetica","normal");d.setFontSize(11);d.setTextColor(30,35,48);d.text(sv[i],M+i*cw,y+6)});y+=13;
+  h2("Distribución de respuestas");OPTS.forEach(([v,t])=>{need(7);d.setFont("helvetica","normal");d.setFontSize(9);d.setTextColor(30,35,48);d.text(t,M,y+3);d.setFillColor(233,238,245);d.roundedRect(M+72,y,95,4.2,2,2,"F");const f=res.freq[v]/ITEMS.length;if(f>0){d.setFillColor(...(v==="NA"?[154,164,178]:hex(col(Number(v)))));d.roundedRect(M+72,y,Math.max(2,95*f),4.2,2,2,"F")}d.setFont("helvetica","bold");d.text(`${res.freq[v]} (${Math.round(f*100)} %)`,M+172,y+3.3);y+=7});y+=2;
+  h2("Síntesis");para(synthesis(r,res,true).replace(/<[^>]+>/g,""),10);y+=3;
+  h2("Valoración por criterio");ITEMS.forEach((it,i)=>{const v=(r.resp||{})["C"+String(i+1).padStart(2,"0")];const ls=d.splitTextToSize(clean(`${i+1}. ${it[2]}`),W-2*M-36);need(ls.length*4.4+2);d.setFont("helvetica","normal");d.setFontSize(9);d.setTextColor(30,35,48);d.text(ls,M,y);d.setFont("helvetica","bold");d.setTextColor(...(v&&v!=="NA"?hex(col(Number(v))):[120,120,120]));d.text(LBL[v]||"-",W-M,y,{align:"right"});y+=ls.length*4.4+1.6});y+=3;
+  if(r.mentoria){h2("Mi mentoría y acompañamiento escolar");const m=r.mentoria;[["Calificación de la mentoría",m.calificacion],["¿Qué funcionó con este grupo?",m.funciono],["¿Qué no funcionó o qué mejoraría?",m.mejoraria],["Recomendación al director(a) que recibe el curso",m.recomendacion]].forEach(([q,a])=>{para(q,9.5,navy,"bold");para(a||"-",9.5);y+=1.5});y+=2}
+  h2("Mi reflexión");para("Mi mayor logro o fortaleza este año fue...",9.5,navy,"bold");para(r.reflexion?.logro||"-",9.5);y+=1.5;para("En 2027 me comprometo a...",9.5,navy,"bold");para(r.reflexion?.compromiso||"-",9.5);
+  need(28);y+=16;d.setDrawColor(120);d.setLineWidth(.3);d.line(M+5,y,M+75,y);d.line(W-M-75,y,W-M-5,y);d.setFont("helvetica","normal");d.setFontSize(8.5);d.setTextColor(...mut);d.text("Firma del docente",M+40,y+4.5,{align:"center"});d.text("Firma del Líder de Fase",W-M-40,y+4.5,{align:"center"});
+  const pn=d.getNumberOfPages();for(let p=1;p<=pn;p++){d.setPage(p);d.setFontSize(7.5);d.setTextColor(...mut);d.text(`Generado el ${new Date().toLocaleDateString("es-CO")} · Página ${p} de ${pn}`,W/2,272,{align:"center"})}
+  return d.output("blob");
+}
+
+const fname=n=>"Autoevaluacion_2026_"+(n||"docente").normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^A-Za-z0-9]+/g,"_")+".pdf";
+let downloads=null,db=null,uid=null,user=null,prevSent="";
+async function deliver(blob,name,msgEl,okTxt){
+  if(downloads){try{await downloads.save({filename:name,data:blob});showMsg(msgEl,"ok",okTxt);return}
+    catch(e){if(e&&e.code==="declined"){showMsg(msgEl,"info","Descarga cancelada.");return}if(e&&e.code==="rate_limited"){showMsg(msgEl,"info","Ya hay una descarga en curso; intente de nuevo en un momento.");return}}}
+  const url=URL.createObjectURL(blob);
+  try{const a=document.createElement("a");a.href=url;a.download=name;a.rel="noopener";document.body.appendChild(a);a.click();a.remove()}catch(e){}
+  openViewer(url,name,blob.type!=="application/pdf");if(msgEl)msgEl.className="msg";
+}
+function openViewer(url,name,isFile){
+  let ov=$("pdfOv");if(ov)ov.remove();ov=document.createElement("div");ov.id="pdfOv";
+  ov.innerHTML=`<div class="ovbox"><div class="ovhead"><div><div class="eyebrow">Su archivo está listo</div><b>${esc(name)}</b></div><button class="btn ghost" id="ovX">✕ Cerrar</button></div>
+  ${isFile?"":`<iframe src="${url}#view=FitH" title="Informe PDF"></iframe>`}
+  <p class="ovtip">${isFile?"Si la descarga no inició sola, use el botón de abajo.":"Si la descarga no inició sola, use el botón <b>⬇ Descargar</b> del visor (arriba a la derecha del documento) o abra el archivo en una pestaña nueva."}</p>
+  <div class="actions" style="margin:10px 0 0"><a class="btn gold" href="${url}" download="${esc(name)}" target="_blank" rel="noopener">⬇ Descargar / abrir el archivo</a></div></div>`;
+  document.body.appendChild(ov);$("ovX").onclick=()=>ov.remove();ov.onclick=e=>{if(e.target===ov)ov.remove()};
+}
+async function savePdf(r,msgEl){
+  if(!window.jspdf){showMsg(msgEl,"err","No se pudo cargar el generador de PDF. Revise su conexión y recargue la página.");return}
+  showMsg(msgEl,"info","Generando su informe…");
+  await deliver(pdfBlob(r),fname(r.nombre),msgEl,"✓ Informe PDF descargado. Ya puede enviarlo o adjuntarlo donde lo necesite.");
+}
+async function send(){
+  const m=$("repMsg");$("send").disabled=true;const r=current,res=r.res;const rd=v=>v==null?null:+v.toFixed(3);
+  const rec={nombre:r.nombre,lider:r.lider,fase:r.fase,mentor:r.mentor,curso:r.curso,anio:2026,resp:r.resp,mentoria:r.mentor==="Sí"?r.mentoria:null,reflexion:r.reflexion,
+    resultados:{indice:rd(res.indice),nivel:res.nivel,dims:Object.fromEntries(Object.entries(res.dims).map(([k,v])=>[k,rd(v)])),comps:Object.fromEntries(Object.entries(res.comps).map(([k,v])=>[k,rd(v)])),media:rd(res.media),sd:rd(res.sd),fav:rd(res.fav)},enviadoEn:new Date().toISOString()};
+  try{await db.doc("autoevaluaciones/"+uid).set(rec);$("sent").classList.add("show");$("send").textContent="Enviar de nuevo (reemplaza)";m.className="msg"}
+  catch(e){showMsg(m,"err",e&&e.code==="invalid_argument"?"Su cuenta no tiene permiso para enviar. Descargue el PDF y entréguelo a su Líder de Fase.":"No se pudo enviar en este momento. Intente de nuevo en unos segundos.")}
+  finally{$("send").disabled=false}
+}
+render();
+(async()=>{
+  try{downloads=await claude.use("downloads")}catch(e){}
+  try{user=await claude.use("user")}catch(e){}
+  try{db=await claude.use("db")}catch(e){}
+  if(user){try{uid=await user.id()}catch(e){}}
+  if(!db||!uid)return;
+  try{const s=await db.doc("autoevaluaciones/"+uid).get();if(s.exists){const r=s.data();Object.assign(st,JSON.parse(JSON.stringify({...S0,...r,mentoria:r.mentoria||S0.mentoria})));prevSent=`Usted ya envió su autoevaluación el ${new Date(r.enviadoEn).toLocaleDateString("es-CO")}. Puede revisarla, descargar su PDF o enviarla de nuevo con cambios.`;if(cur===0)render()}}catch(e){}
+})();
+</script>
+</body>
+</html>
